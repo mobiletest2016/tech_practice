@@ -1,0 +1,37 @@
+{
+  "type": "record",
+  "name": "User",
+  "doc": "User Data",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "age",
+      "type": "int"
+    },
+    {
+      "name": "user_address",
+      "type": {
+        "name": "address",
+        "type": "record",
+        "doc": "Address of User",
+        "fields": [
+          {
+            "name": "city",
+            "type": "string"
+          },
+          {
+            "name": "pin",
+            "type": "long"
+          }
+        ]
+      }
+    }
+  ]
+}
