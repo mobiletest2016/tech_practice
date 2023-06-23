@@ -9,6 +9,8 @@ import org.springframework.kafka.config.TopicBuilder;
 
 /*
 
+sudo docker-compose -f kafka_flink.yml up
+
 To use docker kafka clusters, Run script: add_docker_container_to_hosts.sh
 
 Test from console producer:
