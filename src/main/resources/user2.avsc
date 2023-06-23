@@ -1,0 +1,47 @@
+{
+  "type": "record",
+  "name": "User",
+  "doc": "User Data",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "uuid",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "age",
+      "type": "int"
+    },
+    {
+      "name": "user_address",
+      "type": {
+        "name": "address",
+        "type": "record",
+        "doc": "Address of User",
+        "fields": [
+          {
+            "name": "city",
+            "type": "string"
+          },
+          {
+            "name": "house_no",
+            "type": "long",
+            "default": 0
+          },
+          {
+            "name": "pin",
+            "type": "long"
+          }
+        ]
+      }
+    }
+  ]
+}
