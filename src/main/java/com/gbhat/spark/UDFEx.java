@@ -14,7 +14,7 @@ public class UDFEx {
         session.udf().register("DoubleRankUDF", (UDF1<Integer, Integer>) in -> in * 2, DataTypes.IntegerType);
 
         Dataset<Row> ds = getDs(session);
-//        ds.withColumn("DoubleRank", );
+        ds.withColumn("DoubleRank", functions.callUDF("DoubleRankUDF", ds.col("Rank"))).show();
     }
 
     private static Dataset<Row> getDs(SparkSession session) {
