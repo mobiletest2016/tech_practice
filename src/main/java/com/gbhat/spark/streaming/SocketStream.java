@@ -25,12 +25,14 @@ public class SocketStream {
         SparkSession session = SparkSession.builder().master("local[4,4]").getOrCreate();
         session.sparkContext().setLogLevel("WARN");
         Dataset<Row> lines = session.readStream().format("socket").option("host", "localhost").option("port", 7777).load();
+        lines.printSchema();
         Dataset<String> words = lines.as(Encoders.STRING()).flatMap((FlatMapFunction<String, String>) x -> Arrays.asList(x.split(" ")).iterator(), Encoders.STRING());
         Dataset<Row> count = words.groupBy("value").count();
 
         StreamingQuery query = count.writeStream()
                 .outputMode("update")   //.outputMode("complete") to see all previous
                 .format("console")
+                .option("truncate", "false")
                 .start();
 
         query.awaitTermination();

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeoutException;
     Add it to VM Options: --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
 
  */
-public class KafkaStream1 {
+public class KafkaStream2 {
     public static void main(String[] args) throws StreamingQueryException, TimeoutException {
         SparkSession session = SparkSession.builder().master("local[4,4]").getOrCreate();
         session.sparkContext().setLogLevel("WARN");
@@ -38,10 +38,12 @@ public class KafkaStream1 {
 
         lines.printSchema();
 
-        lines = lines.selectExpr("*", "CAST(value AS STRING)");
+        Dataset<Row> lines2 = lines.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)");
+        Dataset<String> words = lines2.flatMap((FlatMapFunction<Row, String>) row -> Arrays.asList(((String) row.getAs("value")).split(" ")).iterator(), Encoders.STRING());
+        Dataset<Row> count = words.groupBy("value").count();
 
-        StreamingQuery query = lines.writeStream()
-                .outputMode("append")
+        StreamingQuery query = count.writeStream()
+                .outputMode("complete")
                 .format("console")
                 .option("truncate", "false")
                 .start();
