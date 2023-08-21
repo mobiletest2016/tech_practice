@@ -25,27 +25,29 @@ import java.util.concurrent.TimeoutException;
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092 --topic updates
     > (TYPE MESSAGES)
 
-Sample input:
+Open clock in another display.
+Sample input: (Enter at different time)
 >a
->b
->c
->d
 >a
->b
->c
->d
 >a
->b
->c
->d
 >a
->b
->c
->d
->a
->b
->c
->d
+
+
+Sample output:
+-------------------------------------------
+Batch: 8
+-------------------------------------------
++------------------------------------------+-----+-----+
+|window                                    |value|count|
++------------------------------------------+-----+-----+
+|{2023-08-21 17:08:00, 2023-08-21 17:09:00}|a    |2    |
+|{2023-08-21 17:07:30, 2023-08-21 17:08:30}|a    |3    |
+|{2023-08-21 17:07:00, 2023-08-21 17:08:00}|a    |2    |
+|{2023-08-21 17:06:30, 2023-08-21 17:07:30}|a    |1    |
+|{2023-08-21 17:06:00, 2023-08-21 17:07:00}|a    |2    |
+|{2023-08-21 17:05:30, 2023-08-21 17:06:30}|a    |4    |
+|{2023-08-21 17:05:00, 2023-08-21 17:06:00}|a    |2    |
++------------------------------------------+-----+-----+
 
  */
 public class WindowOp {
@@ -70,12 +72,14 @@ public class WindowOp {
             return result.iterator();
         }, RowEncoder.apply(lines2.schema()));
 
-        Dataset<Row> windowedCounts = words.groupBy(
-                functions.window(words.col("timestamp"), "30 seconds", "10 seconds"),
+        Dataset<Row> windowedCounts = words.
+                withWatermark("timestamp", "2 minutes").
+                groupBy(
+                functions.window(words.col("timestamp"), "1 minute", "30 seconds"),
                 words.col("value")
         ).count();
 
-        StreamingQuery query = windowedCounts.writeStream()
+        StreamingQuery query = windowedCounts.orderBy(windowedCounts.col("window").desc()).writeStream()
                 .outputMode("complete")
                 .format("console")
                 .option("truncate", "false")
