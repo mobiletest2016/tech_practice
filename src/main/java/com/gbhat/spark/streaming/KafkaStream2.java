@@ -21,8 +21,21 @@ import java.util.concurrent.TimeoutException;
     For Java >= 17 and Spark >= 3.3.0 Modify Run configurations:
     Click the top right drop down with Class Name
     Click Edit Configurations -> Modify options -> Add VM Options
-    Add it to VM Options: --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
-
+    Add it to VM Options:
+     --add-opens=java.base/java.lang=ALL-UNNAMED
+    --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+    --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+    --add-opens=java.base/java.io=ALL-UNNAMED
+    --add-opens=java.base/java.net=ALL-UNNAMED
+    --add-opens=java.base/java.nio=ALL-UNNAMED
+    --add-opens=java.base/java.util=ALL-UNNAMED
+    --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+    --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED
+    --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
+    --add-opens=java.base/sun.nio.cs=ALL-UNNAMED
+    --add-opens=java.base/sun.security.action=ALL-UNNAMED
+    --add-opens=java.base/sun.util.calendar=ALL-UNNAMED
+    --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED
  */
 public class KafkaStream2 {
     public static void main(String[] args) throws StreamingQueryException, TimeoutException {
