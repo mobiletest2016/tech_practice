@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 /*
 sudo docker-compose -f kafka_flink.yml up
 
-To use docker kafka clusters, Run script: add_docker_container_to_hosts.sh
+To use docker kafka clusters, Run script: add_docker_container_to_hosts.sh **IMPORTANT STEP**
 
  */
 

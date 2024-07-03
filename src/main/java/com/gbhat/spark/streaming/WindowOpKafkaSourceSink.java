@@ -37,7 +37,7 @@ import java.util.concurrent.TimeoutException;
 
 
     sudo docker-compose -f kafka_flink.yml up
-    sudo bash add_docker_container_to_hosts.sh
+    sudo bash add_docker_container_to_hosts.sh **IMPORTANT STEP**
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-topics.sh --create --topic update_src --partitions 10 --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-topics.sh --create --topic update_sink --partitions 10 --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092
 

@@ -14,7 +14,7 @@ import org.apache.flink.util.Collector;
 
 /*
     sudo docker-compose -f kafka_flink.yml up
-    sudo bash add_docker_container_to_hosts.sh
+    sudo bash add_docker_container_to_hosts.sh **IMPORTANT STEP**
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-topics.sh --create --topic input_wc --partitions 10 --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-topics.sh --create --topic output_wc --partitions 10 --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092
     sudo docker exec -it kafka-0 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka-0:19092,kafka-1:29092,kafka-2:39092 --topic output_wc --from-beginning

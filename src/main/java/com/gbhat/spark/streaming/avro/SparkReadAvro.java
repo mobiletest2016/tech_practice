@@ -18,7 +18,7 @@ import static org.apache.spark.sql.avro.functions.from_avro;
     Run SparkReadPlainWriteAvro before
 
     sudo docker-compose -f kafka_flink.yml up
-    sudo bash add_docker_container_to_hosts.sh
+    sudo bash add_docker_container_to_hosts.sh **IMPORTANT STEP**
 
     For Java >= 17 and Spark >= 3.3.0 Modify Run configurations:
     Click the top right drop down with Class Name

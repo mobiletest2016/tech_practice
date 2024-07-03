@@ -13,7 +13,7 @@ import java.util.UUID;
 
 // For setup run:
 //  sudo docker-compose -f hadoop_hive_hbase_spark.yml up
-//  sudo bash add_docker_container_to_hosts.sh
+//  sudo bash add_docker_container_to_hosts.sh **IMPORTANT STEP**
 
 public class HBasePutLarge {
     public static void main(String[] args) throws IOException {
