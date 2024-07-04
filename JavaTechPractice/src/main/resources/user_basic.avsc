@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "User",
+  "doc": "User Data",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "age",
+      "type": "int"
+    }
+  ]
+}
