@@ -10,13 +10,14 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.spark', name: 'spark-core_2.13', version: '3.4.0'
-    implementation group: 'org.apache.spark', name: 'spark-sql_2.13', version: '3.4.0'
-    implementation group: 'org.apache.spark', name: 'spark-mllib_2.13', version: '3.4.0'
-    implementation group: 'org.apache.spark', name: 'spark-streaming_2.13', version: '3.4.0'
-    implementation group: 'org.apache.spark', name: 'spark-sql-kafka-0-10_2.13', version: '3.4.0'
-    implementation group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.13', version: '3.4.0'
+    implementation group: 'org.apache.spark', name: 'spark-core_2.13', version: '3.5.0'
+    implementation group: 'org.apache.spark', name: 'spark-sql_2.13', version: '3.5.0'
+    implementation group: 'org.apache.spark', name: 'spark-mllib_2.13', version: '3.5.0'
+    implementation group: 'org.apache.spark', name: 'spark-streaming_2.13', version: '3.5.0'
+    implementation group: 'org.apache.spark', name: 'spark-sql-kafka-0-10_2.13', version: '3.5.0'
+    implementation group: 'org.apache.spark', name: 'spark-streaming-kafka-0-10_2.13', version: '3.5.0'
 
+    implementation group: 'org.apache.hudi', name: 'hudi-spark3.5-bundle_2.13', version: '0.15.0'
 
     implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.3.4'
 

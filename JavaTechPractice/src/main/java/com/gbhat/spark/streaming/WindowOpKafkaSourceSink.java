@@ -92,7 +92,7 @@ public class WindowOpKafkaSourceSink {
             for(String split : value.split(" "))
                     result.add(new GenericRow(new Object[]{row.getAs("key"), split, row.getAs("timestamp")}));
             return result.iterator();
-        }, RowEncoder.apply(lines2.schema()));
+        }, RowEncoder.encoderFor(lines2.schema()));
 
         Dataset<Row> windowedCounts = words.
                 withWatermark("timestamp", "2 minutes").
