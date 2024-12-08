@@ -52,13 +52,8 @@ public class Write {
         System.out.println("First write completed...");
         Thread.sleep(3000);
 
-        list = new LinkedList<>();
-        for(int i = 0; i < 100; i++) {
-            list.add(RowFactory.create("User_" + i, (long) (i + 100) * 100, "2024-11-" + ((i + 1) / 10)));
-        }
-        ds = session.createDataFrame(list, schema);
-        ds = ds.withColumn("ts", functions.lit(millis));
-        ds.show();
+        ds = ds.withColumn("amt", ds.col("amt").multiply(10));
+
         ds.write()
                 .format("hudi")
                 .option("hoodie.datasource.write.partitionpath.field", "date")
@@ -73,6 +68,6 @@ public class Write {
 
         Thread.sleep(3000);
         System.out.println("Reading data back...");
-        session.read().format("hudi").load("/tmp/hudi_data").show(1000);
+        session.read().format("hudi").load("/tmp/hudi_data").show(1000, false);
     }
 }
