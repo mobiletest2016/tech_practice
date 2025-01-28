@@ -10,6 +10,8 @@ import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows;
+import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
 /*
@@ -42,7 +44,7 @@ import org.apache.flink.util.Collector;
     --add-opens=java.base/sun.util.calendar=ALL-UNNAMED
     --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED
  */
-public class WordCountKafka {
+public class WordCountKafkaSlidingWindow {
     final static String bootstrapServers = "kafka-0:19092,kafka-1:29092,kafka-2:39092";
     final static String inputTopic = "input_wc";
     final static String outputTopic = "output_wc";
@@ -79,6 +81,8 @@ public class WordCountKafka {
         DataStream<String> counts = text.flatMap(new Tokenizer())
                 // Group by the tuple field "0" and sum up tuple field "1"
                 .keyBy(value -> value.f0)
+                .window(
+                        SlidingProcessingTimeWindows.of(Time.seconds(30), Time.seconds(10)))
                 .sum(1)
                 .flatMap(new Reducer());
 
